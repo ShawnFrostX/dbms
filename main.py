@@ -12,7 +12,7 @@ main_label = ttk.Label(
 )
 main_label.pack()
 
-
+f0 = ttk.Frame(master=win)
 #*ACTIVITY
 f1 = ttk.Frame()
 
@@ -45,7 +45,6 @@ def click(x):
   dists = []
   for d in res:
     dists.append(d[0])
-  print(dists)
   
   dist_menu_button = ttk.Menubutton(f2,text='dsaf',width=20)
   dist_menu_button.pack()
@@ -87,6 +86,13 @@ f2.pack()
 
 #*OUTPUT
 def ok_button_fun():
+  output_frame.pack()
+  sep2.pack(pady=5,fill='x',padx=10)
+
+  f3.pack(pady=10)
+  f7.pack(pady=10)
+
+
   act = act_option.get()
   dis = dist_option.get()
 
@@ -144,17 +150,18 @@ sep = ttk.Separator(win,bootstyle = 'primary')
 sep.pack(pady=5,fill='x',padx=10)
 style = ttk.Style()
 
+output_frame = ttk.Frame(master=win)
 output_var = ttk.StringVar()
 title_var = ttk.StringVar()
 output_title = ttk.Label(
-  master=win,
+  master=output_frame,
   text="Spots",
   font="Calibre 15",
   textvariable=title_var,
 )
 output_title.pack(pady=5)
 output_label = ttk.Label(
-  master=win,
+  master=output_frame,
   text='Output',
   font='Calibri 12',
   textvariable=output_var,
@@ -166,10 +173,10 @@ output_label.pack(pady=20,padx=20)
 
 # SEPARATOR
 sep2 = ttk.Separator(win,bootstyle = 'primary')
-sep2.pack(pady=5,fill='x',padx=10)
 
+#####################################################
 
-f3 = ttk.Frame()
+f3 = ttk.Frame(master=win)
 item_option = ttk.StringVar()
 
 item_label = ttk.Label(
@@ -178,11 +185,12 @@ item_label = ttk.Label(
   font='Calibri 12'
 )
 item_label.pack(side='left')
-f3.pack(pady=10)
+
 
 total_cost =0
 l=[]
 def ok_button_fun3():
+  global l
   act = act_option.get()
   ite = item_option.get()
   item = spec_item_selector(act,ite)
@@ -190,81 +198,114 @@ def ok_button_fun3():
   item_id = item[0][0]
 
   shop = shop_selector(item_id)
-  print(shop)
 
   shops =[]
   for i in shop:
     price = price_selector(item_id,i[0])
     pr = price[0][0]
-    t = i[0]+'-'+str(pr)
-    print(t)
+    t = str(item_id)+'#'+i[0]+'-'+str(pr)
     shops.append(t)
 
   f5 = ttk.Frame(master=f4)
   
   def shop_check(j):
+    data = []
+    t = (item_option.get(),(j.split('-')[0]).split('#')[1],j.split('-')[1])
+    data.append(t)
     global total_cost,l
     co = j.split('-')[1]
     if j not in l:
       l.append(j)
+      tree.insert('','end',value=t)
       total_cost+=int(co)
-      print(l)
     else:
       l.remove(j)
+      re = tree.get_children()
+      for child in re:
+        it = tree.item(child)
+        shop_name = it['values'][1]
+        item_name = it['values'][0]
+        act_name = act_option.get()
+        it_id = spec_item_selector(act_name,item_name)[0][0]
+        final_name = str(it_id)+'#'+shop_name
+        if final_name ==j.split('-')[0]:
+          tree.delete(child)
+          break
       total_cost-=int(co)
-
-    
+    print(l)
     cost_option.set(total_cost)
 
       
 
 
-  shop_select_var = ttk.BooleanVar()
+  c=ttk.BooleanVar(value=True)
   for j in shops:
-    shop_checkbox = ttk.Checkbutton(
-      master=f5,
-      text=j,
-      # variable=shop_select_var,
-      command=lambda j=j:shop_check(j)
+    shop_checkbox = tk.Checkbutton(
+        master=f5,
+        text=j.split('#')[1],
+        font= 'Calibri 12',
+        command=lambda j=j:shop_check(j)
     )
+    if j in l:
+      print('in')
+      shop_checkbox.select()
+    else:
+      print('out')
     shop_checkbox.pack(anchor='w',pady=5)
+
+  
 
   if (len(f4.winfo_children())>1):
     f4.winfo_children()[0].destroy()
+  f4.pack()
   f5.pack(pady=10)
-  
+  f6.pack(pady=10,fill=tk.BOTH)
 
+  
+f7 = ttk.Frame(master=win)
 ok_button_3 = ttk.Button(
-  master=win,
+  master=f7,
   text='Find Shops',
   command=ok_button_fun3,
   width=10,
   bootstyle = 'primary outline'
 )
 ok_button_3.pack(pady=10)
+
 # SEPARATOR
-sep3 = ttk.Separator(win,bootstyle = 'primary')
-sep3.pack(pady=5,fill='x',padx=10)
+# sep3 = ttk.Separator(win,bootstyle = 'primary')
+# sep3.pack(pady=5,fill='x',padx=10)
 
 f4 = ttk.Frame(master=win)
-f4.pack()
 
 f6 = ttk.Frame(master=win)
+tree = ttk.Treeview(
+  master=f6,
+  columns=('ITEM','SHOP','PRICE'),
+  show='headings'
+)
+tree.column('ITEM',anchor='center')
+tree.column('SHOP',anchor='center')
+tree.column('PRICE',anchor='center')
+tree.heading('ITEM', text='ITEM')
+tree.heading('SHOP', text='SHOP')
+tree.heading('PRICE', text='PRICE')
+tree.pack(expand=tk.YES)
+
 cost_option = ttk.StringVar()
 cost_title = ttk.Label(
   master=f6,
   text='TOTAL COST:',
   font='Calibri 12'
 )
-cost_title.pack(side='left')
+cost_title.pack()
 cost_label = ttk.Label(
   master=f6,
   text=':',
   textvariable=cost_option,
   font='Calibri 12'
 )
-cost_label.pack(side='left')
-f6.pack(pady=10)
+cost_label.pack()
 
 
 win.mainloop()
