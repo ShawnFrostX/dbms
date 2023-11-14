@@ -16,6 +16,9 @@ def db_selector():
     cursor.execute('use oar')
     con.commit()
 
+def querytaker(query):
+    cursor.execute(query)
+    con.commit()
 
 def querysender(query):
     cursor.execute(query)
