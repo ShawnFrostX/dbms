@@ -29,7 +29,16 @@ def remover():
 
 root = ttk.Window(themename='darkly')
 root.geometry('1280x720')
+root.title('ADMIN')
 root.attributes('-fullscreen',True)
+main_label = ttk.Label(
+  master=root,
+  text='ADMINISTRATOR PRIVILEGE',
+  font='Calibri 20'
+)
+main_label.pack()
+
+
 f00 = ttk.Frame(master=root,width=640)
 
 #!Activity part
