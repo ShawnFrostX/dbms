@@ -1,10 +1,10 @@
 use oar;
-#select * from activity;
-#insert into activity values (1,'camping'),(2,"beach volleyball"),(3,"scuba diving"),(4,"picnic"),(5,"paragliding"),(6,"rock climbing"),(7,"kayaking"),(8,"hot air balloon"),(9,"hiking/trekking"),(10,"river rafting"),(11,"boating");
-#select * from activity;
+select * from activity;
+insert into activity values (1,'camping'),(2,"beach volleyball"),(3,"scuba diving"),(4,"picnic"),(5,"paragliding"),(6,"rock climbing"),(7,"kayaking"),(8,"hot air balloon"),(9,"hiking/trekking"),(10,"river rafting"),(11,"boating");
+select * from activity;
 
 
-/*INSERT INTO place
+INSERT INTO place
 VALUES
     (1,'Meesapulimala', 'Idukki'),
     (1,'Thenmala', 'Kollam'),
@@ -20,10 +20,7 @@ VALUES
     (1,'Periyar tiger reserve', 'Idukki'),
     (1,'Eravikulam national park', 'Idukki');
     
-    select * from activity;
-    select * from place;*/`oar`
-    
-/*INSERT INTO place
+INSERT INTO place
 VALUES
     (2, 'Varkala beach','Thiruvananthapuram'),
     (2, 'Kovalam beach','Thiruvananthapuram'),
@@ -51,9 +48,6 @@ VALUES
     (2, 'Kuzhupilly beach','Ernakulam'),
     (2, 'Dharmadam beach','Kannur'),
     (2, 'Thirumullavaram beach','Kollam');
-select * from place;*/
-
-
 
 INSERT INTO place
 VALUES
@@ -62,7 +56,6 @@ VALUES
     (3, 'Munnar','Idukki'),
     (3, 'Varkala','Thiruvananthapuram'),
     (3, 'Kumbazha','Pathanamthitta');
-
 
 INSERT INTO place
 VALUES
@@ -112,7 +105,6 @@ VALUES
     (8, 'Southern Skies Aerodynamics','Idukki'),
     (8, 'Hot Air Balloon adventures','Idukki');
 
-
 INSERT INTO place
 VALUES
     (9, 'Kodikuthimala','Malappuram'),
@@ -154,8 +146,5 @@ VALUES
     (11, 'Pookode lake', 'Wayanad'),
     (11, 'Thenmala dam', 'Kollam'),
     (11, 'Vembanad lake', 'Kottayam');
-
-select * from place;
-
 
 select district,count(*) from place group by district;
