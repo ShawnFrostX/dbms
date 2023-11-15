@@ -9,12 +9,14 @@ def insert_shop():
   pr = shop_price_entry_option.get()
   k=shop_inserter(iid,sname,sid,pr)
   del_final_label_option.set(k)
+
 def insert_item():
   aid = item_actid_entry_option.get()
   iid = item_itemid_entry_option.get()
   iname = item_itemname_entry_option.get()
   k=item_inserter(aid,iid,iname)
   del_final_label_option.set(k)
+
 def insert_act():
   id = actid_entry_option.get()
   aname = actname_entry_option.get()
@@ -22,6 +24,7 @@ def insert_act():
   dname = dist_entry_option.get()
   k = activity_inserter(id,aname,pname,dname)
   del_final_label_option.set(k)
+
 def remover():
   x=del_entry_option.get()
   k=deleter(x)
