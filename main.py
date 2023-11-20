@@ -18,7 +18,7 @@ def click(x):
   for d in res:
     dists.append(d[0])
   
-  dist_menu_button = ttk.Menubutton(f2,text='dsaf',width=20)
+  dist_menu_button = ttk.Menubutton(f2,text='d',width=20)
   dist_menu_button.pack()
   if (len(f2.winfo_children())>2):
     f2.winfo_children()[1].destroy()
