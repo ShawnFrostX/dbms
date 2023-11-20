@@ -18,13 +18,16 @@ def insert_item():
   del_final_label_option.set(k)
 
 def insert_act():
-  id = actid_entry_option.get()
-  aname = actname_entry_option.get()
-  pname = place_entry_option.get()
-  dname = dist_entry_option.get()
-  k = activity_inserter(id,aname,pname,dname)
+  idd = act_actid_entry_option.get()
+  aname = act_actname_entry_option.get()
+  k = activity_inserter(idd,aname,)
   del_final_label_option.set(k)
-
+def insert_place():
+  idd = place_actid_entry_option.get()
+  pname = place_place_entry_option.get()
+  dname = place_dist_entry_option.get()
+  k = place_inserter(idd,pname,dname)
+  del_final_label_option.set(k)
 def remover():
   x=del_entry_option.get()
   k=deleter(x)
@@ -39,82 +42,59 @@ main_label = ttk.Label(
   text='ADMINISTRATOR PRIVILEGE',
   font='Calibri 20'
 )
-main_label.pack()
+main_label.pack(pady=10)
+separator = ttk.Frame(
+  master=root,
+  bootstyle = 'primary',
+  height=2
+)
+separator.pack(fill=tk.X)
 
 f00 = ttk.Frame(master=root,width=640)
 
 #!Activity part
 act_label = ttk.Label(
   master=f00,
-  text='INSERT ACTIVITY AND PLACE',
+  text='INSERT ACTIVITY',
   font='Calibri 15'
 )
-act_label.pack(pady=30)
+act_label.pack(pady=5)
 #*ID
-factid = ttk.Frame(master=f00)
-actid_label = ttk.Label(
-  factid,
+
+act_actid = ttk.Frame(master=f00)
+act_actid_label = ttk.Label(
+  act_actid,
   text='Activity ID:',
   font='Calibri 12'
 )
-actid_label.pack(pady=10,side='left')
+act_actid_label.pack(pady=10,side='left')
 
-actid_entry_option = ttk.IntVar()
-actid_entry = ttk.Entry(
-  factid,
-  textvariable=actid_entry_option
+act_actid_entry_option = ttk.IntVar()
+act_actid_entry = ttk.Entry(
+  act_actid,
+  textvariable=act_actid_entry_option
 )
-actid_entry.pack(side='left')
-factid.pack()
+act_actid_entry.pack(side='left')
+act_actid.pack()
+
 #*ACTIVITY
-factname = ttk.Frame(master=f00)
-actname_label = ttk.Label(
-  factname,
+
+act_actname = ttk.Frame(master=f00)
+act_actname_label = ttk.Label(
+  act_actname,
   text='Activity Name:',
   font='Calibri 12'
 )
-actname_label.pack(pady=10,side='left')
+act_actname_label.pack(pady=10,side='left')
 
-actname_entry_option = ttk.StringVar()
-actname_entry = ttk.Entry(
-  factname,
-  textvariable=actname_entry_option
+act_actname_entry_option = ttk.StringVar()
+act_actname_entry = ttk.Entry(
+  act_actname,
+  textvariable=act_actname_entry_option
 )
-actname_entry.pack(side='left')
-factname.pack()
-#*PLACE
-fplace = ttk.Frame(master=f00)
-place_label = ttk.Label(
-  fplace,
-  text='Place Name:',
-  font='Calibri 12'
-)
-place_label.pack(pady=10,side='left')
+act_actname_entry.pack(side='left')
+act_actname.pack()
 
-place_entry_option = ttk.StringVar()
-place_entry = ttk.Entry(
-  fplace,
-  textvariable=place_entry_option
-)
-place_entry.pack(side='left')
-fplace.pack()
-
-#*DISTRICT
-fdist = ttk.Frame(master=f00)
-dist_label = ttk.Label(
-  fdist,
-  text='District Name:',
-  font='Calibri 12'
-)
-dist_label.pack(pady=10,side='left')
-
-dist_entry_option = ttk.StringVar()
-dist_entry = ttk.Entry(
-  fdist,
-  textvariable=dist_entry_option
-)
-dist_entry.pack(side='left')
-fdist.pack()
 
 act_insert_button = ttk.Button(
   f00,
@@ -123,13 +103,83 @@ act_insert_button = ttk.Button(
 )
 act_insert_button.pack(pady=10,padx=10)
 
+#!place
+
+place_label = ttk.Label(
+  master=f00,
+  text='INSERT PLACE',
+  font='Calibri 15'
+)
+place_label.pack(pady=5)
+
+#*PLACE act id
+
+place_actid = ttk.Frame(master=f00)
+place_actid_label = ttk.Label(
+  place_actid,
+  text='Activity ID:',
+  font='Calibri 12'
+)
+place_actid_label.pack(pady=10,side='left')
+
+place_actid_entry_option = ttk.IntVar()
+place_actid_entry = ttk.Entry(
+  place_actid,
+  textvariable=place_actid_entry_option
+)
+place_actid_entry.pack(side='left')
+place_actid.pack()
+
+#*place place
+
+place_place = ttk.Frame(master=f00)
+place_place_label = ttk.Label(
+  place_place,
+  text='Place:',
+  font='Calibri 12'
+)
+place_place_label.pack(pady=10,side='left')
+
+place_place_entry_option = ttk.StringVar()
+place_place_entry = ttk.Entry(
+  place_place,
+  textvariable=place_place_entry_option
+)
+place_place_entry.pack(side='left')
+place_place.pack()
+
+#*DISTRICT
+
+place_dist = ttk.Frame(master=f00)
+place_dist_label = ttk.Label(
+  place_dist,
+  text='District:',
+  font='Calibri 12'
+)
+place_dist_label.pack(pady=10,side='left')
+
+place_dist_entry_option = ttk.StringVar()
+place_dist_entry = ttk.Entry(
+  place_dist,
+  textvariable=place_dist_entry_option
+)
+place_dist_entry.pack(side='left')
+place_dist.pack()
+
+place_insert_button = ttk.Button(
+  f00,
+  text='INSERT',
+  command=insert_place
+)
+place_insert_button.pack(pady=10,padx=10)
+
 #!ITEM PART
 item_label = ttk.Label(
   master=f00,
   text='INSERT ITEM DETAILS',
   font='Calibri 15'
 )
-item_label.pack(pady=30)
+item_label.pack(pady=5)
 #*item actid
 item_actid = ttk.Frame(master=f00)
 item_actid_label = ttk.Label(
@@ -194,7 +244,7 @@ shop_label = ttk.Label(
   text='INSERT SHOP DETAILS',
   font='Calibri 15'
 )
-shop_label.pack(pady=30)
+shop_label.pack(pady=5)
 #*shop itemid
 shop_itemid = ttk.Frame(master=f00)
 shop_itemid_label = ttk.Label(

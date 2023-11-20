@@ -10,13 +10,19 @@ def deleter(id):
     return error
   return f'All correspondence of activity id {id} deleted from all tables'
 
-def activity_inserter(act_id,act_name,place_name,place_dist):
+def activity_inserter(act_id,act_name):
   try:
     querytaker(f"insert into activity values({act_id},'{act_name}');")
+  except mysql.connector.Error as error:
+    return error
+  return f"Inserted act_id:{act_id}, act_name:{act_name} to Activity Table."
+
+def place_inserter(act_id,place_name,place_dist):
+  try:
     querytaker(f"insert into place values({act_id},'{place_name}','{place_dist}')")
   except mysql.connector.Error as error:
     return error
-  return f"Inserted act_id:{act_id}, act_name:{act_name} to Activity.\nInserted place_name:{place_name}, district:{place_dist} to Place Table"
+  return f"Inserted act_id:{act_id}, Place_name:{place_name}, District:{place_dist} to Place Table"
 
 def shop_inserter(item_id,shop_name,shop_id,price):
   try:
